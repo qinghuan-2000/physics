@@ -1,6 +1,6 @@
 <template>
   <div class="contain">
-    <div class="title">
+    <div class="title1">
       <img class="timg" src="../assets/home/title.png" />
     </div>
     <div class="button">
@@ -55,7 +55,7 @@ export default {
   flex-direction: column;
   margin: 0%;
 }
-.title {
+.title1 {
   display: flex;
   justify-content: center;
 }

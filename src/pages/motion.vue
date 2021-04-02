@@ -137,7 +137,6 @@ export default {
       history.go();
     },
   },
-  created() {},
 };
 </script>
 <style scoped>
