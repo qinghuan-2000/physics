@@ -1,5 +1,8 @@
 <template>
   <div class="force">
+    <div class="gsxt" @click="gsxt()">
+      Physical experiment demonstration platform
+    </div>
     <div class="title">力的相互作用</div>
     <h2 style="margin: auto; margin-top: 20px; margin-bottom: 20px">
       一、重力
@@ -74,12 +77,17 @@
         </div>
       </div>
       <div class="rforce">
-        <img style="width:100%" src="../assets/force/know2.png" />
+        <img style="width: 100%" src="../assets/force/know2.png" />
       </div>
     </div>
-    <h2 style="margin: auto; margin-top: 20px;margin-bottom:20px">三、单元总结</h2>
+    <h2 style="margin: auto; margin-top: 20px; margin-bottom: 20px">
+      三、单元总结
+    </h2>
     <div class="sforce">
       <div class="lsforce">
+        <h5 style="margin-top: 10px; margin-left: 15px">
+          弹力球在重力和弹力的作用下的运动模拟
+        </h5>
         <input
           type="button"
           class="btn"
@@ -90,17 +98,20 @@
         <div id="div"></div>
       </div>
       <div class="rsforce">
-        <img style="width:95%" src="../assets/force/know3.png" />
+        <img style="width: 95%" src="../assets/force/know3.png" />
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  data() {
-    return {};
-  },
+  // data() {
+  //   return {};
+  // },
   methods: {
+    gsxt() {
+      this.$router.push({path:'/' });
+    },
     start01() {
       var timer01;
       var speed = -19;
@@ -110,7 +121,7 @@ export default {
         } else {
           clearInterval(timer01);
         }
-      }, 30);
+      }, 50);
     },
     start02() {
       var timer02;
@@ -120,7 +131,7 @@ export default {
         if (lift02.offsetTop < 653) {
           count++;
           if (count % 10 == 0) {
-            speed += 3;
+            speed += 10;
           }
           lift02.style.top = lift02.offsetTop + speed + "px";
         } else {
@@ -238,6 +249,14 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.gsxt {
+  margin: auto;
+  margin-top: 10px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
 .title {
   display: flex;
   justify-content: center;
@@ -301,7 +320,7 @@ export default {
   width: 100%;
   height: 550px;
   justify-content: space-between;
-    margin-bottom: 100px;
+  margin-bottom: 100px;
 }
 .lsforce {
   width: 50%;
@@ -313,7 +332,7 @@ export default {
   display: flex;
   width: 50%;
   height: 550px;
-justify-content: center;
+  justify-content: center;
 }
 .know2 {
   width: 100%;

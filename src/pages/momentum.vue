@@ -1,125 +1,164 @@
-
-
 <template>
-  <canvas id="myCanvas"></canvas>
+  <div class="momentum">
+        <div class="gsxt" @click="gsxt()">Physical experiment demonstration platform</div>
+    <div class="title">动量定理与动量守恒</div>
+    <h3 style="margin: auto; margin-top: 20px">
+      一、完全弹性碰撞中的动量守恒定理
+    </h3>
+    <div class="momentum1">
+      <div class="momentum1-left">
+        <iframe
+          src="static/tp.html"
+          style="margin: auto"
+          frameboarder="0"
+          height="515px"
+          width="650px"
+        ></iframe>
+      </div>
+      <div class="momentum1-right">
+        <img
+          style="width: 696px; height: 530px"
+          src="../assets/momentum/know1.png"
+        />
+      </div>
+    </div>
+    <h3 style="margin: auto; margin-top: 20px">
+      二、完全非弹性碰撞中的动量守恒定理
+    </h3>
+    <div class="momentum2">
+      <div class="momentum2-left">
+        <iframe
+          src="static/tp2.html"
+          style="margin: auto; margin-left: 20px"
+          frameboarder="0"
+          height="515px"
+          width="650px"
+        ></iframe>
+      </div>
+      <div class="momentum2-right">
+        <img
+          style="width: 820px; height: 441px"
+          src="../assets/momentum/know2.png"
+        />
+      </div>
+    </div>
+    <h3 style="margin: auto; margin-top: 20px">三、单元总结</h3>
+    <div class="momentum3">
+      <div class="momentum3-left">
+        <iframe
+          src="static/tt.html"
+          style="margin: auto; margin-left: 20px"
+          frameboarder="0"
+          height="515px"
+          width="650px"
+        ></iframe>
+      </div>
+      <div class="momentum3-right">
+        <img
+          style="width: 696px; height: 530px"
+          src="../assets/momentum/know3.png"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-
-/*
-//声明画布大小为屏幕的1/3
-var width = window.innerWidth / 3;
-var height = window.innerHeight / 3;
-var canvas = document.getElementById("myCanvas");
-canvas.width = width;
-canvas.height = height;
-//创建2d画笔
-var ctx = canvas.getContext("2d");
-//填充颜色设置为黑色（背景色）
-ctx.fillStyle = "#000";
-//将整个画布填充
-ctx.fillRect(0, 0, width, height);
-
-//碰撞检测 动量守恒
-//x,y,vx,vy,ax,ay,size,rou,color,ctx
-var balla = new Ball(20, 0.5 * height, 5, -3, 0, 0, 8, 1, "#ff0", ctx);
-var ballb = new Ball(width - 20, 0.5 * height, -3, 5, 0, 0, 13, 1, "#0ff", ctx);
-var ballc = new Ball(width / 2, 0.5 * height, 7, 4, 0, 0, 13, 1, "#0ff", ctx);
-
-setInterval(animation, 30);
-function animation() {
-  //小球的速度等于速度加上加速度
-  balla.vx += balla.ax;
-  balla.vy += balla.ay;
-  //小球的位移等于小球现在的坐标加上速度
-  balla.x += balla.vx;
-  balla.y += balla.vy;
-
-  ballb.vx += ballb.ax;
-  ballb.vy += ballb.ay;
-  ballb.x += ballb.vx;
-  ballb.y += ballb.vy;
-  //基于距离的碰撞检测
-  var pointdis =
-    (balla.x - ballb.x) * (balla.x - ballb.x) +
-    (balla.y - ballb.y) * (balla.y - ballb.y); //坐标距离
-  var pointsize = (balla.size + ballb.size) * (balla.size + ballb.size); //半径距离
-  if (pointdis <= pointsize) {
-    console.log("haha");
-    //这里是能量守恒公式
-    var ballavx =
-      ((balla.m - ballb.m) * balla.vx + 2 * ballb.m * ballb.vx) /
-      (balla.m + ballb.m);
-    var ballavy =
-      ((balla.m - ballb.m) * balla.vy + 2 * ballb.m * ballb.vy) /
-      (balla.m + ballb.m);
-    var ballbvx =
-      ((ballb.m - balla.m) * ballb.vx + 2 * balla.m * balla.vx) /
-      (balla.m + ballb.m);
-    var ballbvy =
-      ((ballb.m - balla.m) * ballb.vy + 2 * balla.m * balla.vy) /
-      (balla.m + ballb.m);
-    balla.vx = ballavx;
-    balla.vy = ballavy;
-
-    ballb.vx = ballbvx;
-    ballb.vy = ballbvy;
-    //小Bug改进
-    if (
-      Math.abs(balla.vx - ballb.vx) < 0.01 &&
-      Math.abs(balla.vy - ballb.vy) < 0.01
-    ) {
-      console.log(balla.vx);
-      balla.vx = -balla.vx;
-      balla.vy = -balla.vy;
-      return;
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    gsxt(){
+      this.$router.push({path:"/"})
     }
-  }
+  },
 
-  //判断是否碰撞到画布的边缘
-  if (balla.x + balla.size >= width || balla.x - balla.size <= 0) {
-    balla.vx *= -0.98;
-  }
-  if (balla.y + balla.size >= height || balla.y - balla.size <= 0) {
-    balla.vy *= -0.98;
-  }
-
-  if (ballb.x + ballb.size >= width || ballb.x - ballb.size <= 0) {
-    ballb.vx *= -0.98;
-  }
-  if (ballb.y + ballb.size >= height || ballb.y - ballb.size <= 0) {
-    ballb.vy *= -0.98;
-  }
-
-  //清空画布，画出小球
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, width, height);
-  balla.draw(ctx);
-  ballb.draw(ctx);
-  //console.log(ballb.vy);
-}
-function Ball(x, y, vx, vy, ax, ay, size, rou, color, ctx) {
-  //参数传值
-  //x，y为坐标点 vx，vy为小球水平和垂直方向上的速度 ax，ay为加速度
-  //size 为大小 rou为密度 color颜色 ctx画笔
-  this.x = x;
-  this.y = y;
-  this.vx = vx;
-  this.vy = vy;
-  this.rou = rou;
-  this.size = size;
-  this.ax = ax;
-  this.ay = ay;
-  this.m = Math.PI * this.size * this.size * rou; //求出质量
-
-  this.draw = function (ctx) {
-    ctx.fillStyle = color;
-    //console.log(this.x, this.y,this.size);
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); //画圆
-    ctx.fill();
-    ctx.closePath();
-  };
-  this.draw(ctx);
-}
-*/
+};
 </script>
+<style>
+.momentum {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  font-weight: bolder;
+  font-size: 30px;
+  margin-top: 15px;
+}
+.gsxt{
+  margin: auto;
+  margin-top: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.momentum1 {
+  display: flex;
+  width: 100%;
+  height: 600px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.momentum1-left {
+  display: flex;
+  width: 50%;
+  height: 600px;
+  justify-content: center;
+}
+.momentum1-right {
+  display: flex;
+  width: 50%;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+}
+.momentum2 {
+  display: flex;
+  width: 100%;
+  height: 600px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.momentum2-left {
+  display: flex;
+  width: 45%;
+  height: 600px;
+  justify-content: center;
+  margin-left: 20px;
+}
+.momentum2-right {
+  display: flex;
+  width: 55%;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+}
+.momentum3 {
+  display: flex;
+  width: 100%;
+  height: 600px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.momentum3-left {
+  display: flex;
+  width: 50%;
+  height: 600px;
+  justify-content: center;
+  margin-left: 20px;
+}
+.momentum3-right {
+  display: flex;
+  width: 50%;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+}
+</style>

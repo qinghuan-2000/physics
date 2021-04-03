@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+      }
+      .top {
+        margin-left: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <h5 style="margin-bottom: 10px;text-align: center;">
+        两个大小相同的小球完全非弹性相撞
+      </h5>
+      <input
+        type="button"
+        style="width: 42px;height: 24px;"
+        value="开始"
+        onclick="set()"
+      />
+      <input
+        type="button"
+        style="width: 42px;height: 24px;"
+        value="还原"
+        onclick="reset()"
+      />
+    </div>
+    <canvas id="myCanvas"></canvas>
+  </body>
+  <script>
+    var width = window.innerWidth;
+    console.log(width);
+    var height = window.innerHeight - 100;
+    console.log(height);
+    var canvas = document.getElementById("myCanvas");
+    canvas.width = width;
+    canvas.height = height;
+    //创建2d画笔
+    var ctx = canvas.getContext("2d");
+    //填充颜色设置为黑色（背景色）
+    ctx.fillStyle = "#000";
+    //将整个画布填充
+    ctx.fillRect(0, 0, width, height);
+    var count = 1;
+    function set() {
+      if (count === 1) {
+        count = 0;
+        //碰撞检测 动量守恒
+        //大小一致的时候
+        var balla = new Ball(20, 0.5 * height, 10, 20, 1, "#ff0", ctx);
+        var ballb = new Ball(
+          (1 / 2) * width,
+          0.5 * height,
+          0,
+          20,
+          1,
+          "#0ff",
+          ctx
+        );
+
+        setInterval(animation, 30);
+        function animation() {
+          //小球的位移等于小球现在的坐标加上速度
+          balla.x += balla.vx;
+          ballb.x += ballb.vx;
+          //基于距离的碰撞检测
+          var pointdis = (balla.x - ballb.x) * (balla.x - ballb.x); //坐标距离
+          var pointsize = (balla.size + ballb.size) * (balla.size + ballb.size); //半径距离
+          if (pointdis <= pointsize) {
+            //这里是能量守恒公式
+            var ballbvx =
+              (balla.m * balla.vx + ballb.m * ballb.vx) / (balla.m + ballb.m);
+            balla.vx = 0;
+            balla.x = 0;
+            balla.size = 0;
+            ballb.size = 2 * ballb.size;
+            ballb.vx = ballbvx;
+          }
+          //小Bug改进
+          if (Math.abs(balla.vx - ballb.vx) < 0.01) {
+            balla.vx = -balla.vx;
+            return;
+          }
+          //判断是否碰撞到画布的边缘
+          if (balla.x + balla.size >= width || balla.x - balla.size <= 0) {
+            balla.vx *= 0;
+          }
+          if (ballb.x + ballb.size >= width || ballb.x - ballb.size <= 0) {
+            ballb.vx *= 0;
+          }
+
+          //清空画布，画出小球
+          ctx.fillStyle = "#000";
+          ctx.fillRect(0, 0, width, height);
+          balla.draw(ctx);
+          ballb.draw(ctx);
+          //console.log(ballb.vy);
+        }
+      } else {
+        reset();
+      }
+    }
+    function reset() {
+      location.reload();
+    }
+    function Ball(x, y, vx, size, rou, color, ctx) {
+      //参数传值
+      //x，y为坐标点 vx，vy为小球水平和垂直方向上的速度 ax，ay为加速度
+      //size 为大小 rou为密度 color颜色 ctx画笔
+      this.x = x;
+      this.y = y;
+      this.vx = vx;
+      this.rou = rou;
+      this.size = size;
+      this.m = Math.PI * this.size * this.size * rou; //求出质量
+
+      this.draw = function(ctx) {
+        ctx.fillStyle = color;
+        //console.log(this.x, this.y,this.size);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); //画圆
+        ctx.fill();
+        ctx.closePath();
+      };
+      this.draw(ctx);
+    }
+  </script>
+</html>

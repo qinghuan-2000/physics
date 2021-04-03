@@ -1,5 +1,6 @@
 <template>
   <div class="contain">
+        <div class="gsxt" @click="gsxt()">Physical experiment demonstration platform</div>
     <div class="title">运动的描述</div>
     <h2 style="margin: auto; margin-top: 30px">一、匀速直线运动</h2>
     <div class="uniform1">
@@ -136,6 +137,9 @@ export default {
     reset_two() {
       history.go();
     },
+        gsxt(){
+      this.$router.push({path:"/"})
+    }
   },
 };
 </script>
@@ -152,6 +156,14 @@ export default {
   height: 80px;
   font-weight: bolder;
   font-size: 30px;
+}
+.gsxt{
+  margin: auto;
+  margin-top: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
 }
 /* 第一部分，匀速运动 */
 .uniform1 {
