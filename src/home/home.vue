@@ -1,7 +1,7 @@
 <template>
   <div class="contain">
     <div class="title1">
-      <img class="timg" src="../assets/home/title.png" />
+      <img style="width:600px;height:206px" src="../assets/home/title.png" />
     </div>
     <div class="button">
       <div class="choosen">
@@ -58,6 +58,9 @@ export default {
 .title1 {
   display: flex;
   justify-content: center;
+  padding-top:20px ;
+  width: 100%;
+  height: 260px;;
 }
 .timg {
   margin-top: 50px;
